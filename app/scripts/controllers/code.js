@@ -8,12 +8,13 @@
  * Controller of the sandboxApp
  */
 angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms, libraries, operation, $interval) {
-    
+
     $scope.platforms = platforms;
     $scope.libraries = libraries;
     $scope.code = null;
     $scope.executionResult = null;
-    
+    $scope.executionStatus = null;
+
     $scope.requestExecution = function () {
         operation.post({
             Platform: $scope.selectedPlatform.Id,
@@ -34,11 +35,18 @@ angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms,
             });
         }, 500);
     }
-    
+
     function putResult(data) {
-        $scope.executionResult = data;
+        if (data.Exception) {
+            $scope.executionResult = data.Exception;
+            $scope.executionStatus = 'execution-failure';
+        }
+        else {
+            $scope.executionResult = data.Result;
+            $scope.executionStatus = 'execution-success';
+        }
     }
-    
+
     $scope.selectedPlatform = $scope.platforms[0];
-    
+
 });
