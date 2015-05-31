@@ -23,7 +23,17 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Zwracany typ</label>
+            <select 
+                class="form-control"
+                ng-options="item.Name for item in variables"
+                ng-model="selectedVariable"></select>
+        </div>
+    </div>
+	<div class="col-md-6">
+	    <div class="col-lg-12">
         <input type="checkbox" class="form-control" ng-model="useCodeWrapper" name="use-wrapper"/>
         <label for="use-wrapper">Użyj wrappera</label>
     </div>
