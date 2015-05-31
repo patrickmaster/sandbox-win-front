@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the sandboxApp
  */
-angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms, libraries, operation, $interval) {
+angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms, libraries, operation, $timeout) {
 
     $scope.platforms = platforms;
     $scope.libraries = libraries;
@@ -24,14 +24,16 @@ angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms,
             pullResult(data.Id);
         });
     };
-
-    var intervalPromise;
-
+    
     function pullResult(id) {
-        intervalPromise = $interval(function () {
+        $timeout(function () {
             operation.get({id: id}, function (data) {
-                putResult(data);
-                $interval.cancel(intervalPromise);
+                if (typeof data.Result !== 'undefined' || typeof data.Exception !== 'undefined') {
+                    putResult(data);
+                }
+                else {
+                    pullResult(id);
+                }
             });
         }, 500);
     }
