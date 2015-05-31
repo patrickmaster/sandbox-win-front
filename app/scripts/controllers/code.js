@@ -7,14 +7,16 @@
  * # MainCtrl
  * Controller of the sandboxApp
  */
-angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms, libraries, operation, $timeout) {
+angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms, libraries, operation, $timeout, returntypes) {
 
     $scope.platforms = platforms;
     $scope.libraries = libraries;
+    $scope.returntypes = returntypes;
     $scope.code = null;
     $scope.executionResult = null;
     $scope.executionStatus = null;
     $scope.selectedPlatform = $scope.platforms[0];
+    $scope.selectedReturnType = null;
     $scope.waitingForResult = false;
     $scope.useCodeWrapper = true;
 
@@ -24,6 +26,7 @@ angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms,
             Platform: $scope.selectedPlatform.ID,
             Libraries: getLibraries(),
             Code: $scope.code,
+            ReturnType: $scope.selectedReturnType.ID,
             UseWrapper: $scope.useCodeWrapper
         }, function (data) {
             pullResult(data.ID);

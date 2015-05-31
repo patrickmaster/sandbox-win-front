@@ -27,6 +27,9 @@ angular.module('sandboxApp', [
             },
             libraries: function (library) {
                 return library.query();
+            },
+            returntypes: function (returntype) {
+                return returntype.query();
             }
         }
     }).when('/libraries', {
