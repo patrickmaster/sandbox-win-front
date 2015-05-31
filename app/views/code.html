@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Platforma</label>
+            <select 
+                class="form-control"
+                ng-options="item.Name for item in platforms"
+                ng-model="selectedPlatform"></select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Biblioteki</label>
+            <ul class="multiple-checkboxes">
+                <li
+                    ng-repeat="item in libraries | filter: {Platform: selectedPlatform.Id}">
+                    <input type="checkbox" class="form-control" ng-model="item.selected" name="libraryitem_{{$index}}"/>
+                    <label for="libraryitem_{{$index}}">{{item.Name}}</label>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <label>Kod</label>
+        <textarea 
+            class="form-control"
+            ng-model="code"></textarea>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <button 
+            type="button" class="btn btn-default"
+            ng-click="requestExecution()">Wykonaj</button>
+    </div>
+</div>
+<div>
+    <pre>{{ executionResult }}</pre>
+</div>
