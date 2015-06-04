@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the sandboxApp
  */
-angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms, libraries, operation, $timeout, returntypes) {
+angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms, libraries, operation, $timeout, returntypes, Upload, apiUrl) {
 
     $scope.platforms = platforms;
     $scope.libraries = libraries;
@@ -19,9 +19,20 @@ angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms,
     $scope.selectedReturnType = null;
     $scope.waitingForResult = false;
     $scope.useCodeWrapper = true;
+    $scope.inputMode = 'inline';
+    $scope.sourceFiles = [];
 
     $scope.requestExecution = function () {
         $scope.waitingForResult = true;
+        if ($scope.inputMode === 'inline') {
+            queueInlineCode();
+        }
+        else {
+            queueFileCode();
+        }
+    };
+
+    function queueInlineCode() {
         operation.post({
             Platform: $scope.selectedPlatform.ID,
             Libraries: getLibraries(),
@@ -31,7 +42,26 @@ angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms,
         }, function (data) {
             pullResult(data.ID);
         });
-    };
+    }
+
+    function queueFileCode() {
+        if ($scope.sourceFiles && $scope.sourceFiles.length) {
+            Upload.upload({
+                url: apiUrl + '/operation/file',
+                fields: {
+                    Platform: $scope.selectedPlatform.ID,
+                    Libraries: getLibraries()
+                },
+                file: $scope.sourceFiles[0]
+            }).success(function (data) {
+                pullResult(data.ID);
+            }).error(function () {
+                $scope.executionStatus = 'execution-failure';
+                $scope.executionResult = 'Nieoczekiwany błąd';
+                $scope.waitingForResult = false;
+            });
+        }
+    }
 
     function getLibraries() {
         var libs = [];

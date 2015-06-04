@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('sandboxApp').controller('LibrariesFormCtrl', function ($scope, libraryItem, library, platforms, Upload, apiUrl, $location) {
+angular.module('sandboxApp').controller('LibrariesFormCtrl', function ($scope, platforms, Upload, apiUrl, $location) {
     $scope.platforms = platforms;
     $scope.platform = null;
     $scope.name = null;

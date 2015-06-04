@@ -1,4 +1,8 @@
-<h2>Kompilacja</h2>
+<h2>Kompilacja kodu</h2>
+<ul class="nav nav-tabs nav-justified" style="margin-bottom: 20px;">
+    <li ng-class="{active: inputMode == 'inline'}"><a href="javascript:0" ng-click="inputMode = 'inline'">Inline</a></li>
+    <li ng-class="{active: inputMode == 'files'}"><a href="javascript:0" ng-click="inputMode = 'files'">Pliki</a></li>
+</ul>
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -14,7 +18,7 @@
             <label>Biblioteki</label>
             <ul class="multiple-checkboxes" ng-show="selectedPlatform">
                 <li
-                    ng-repeat="item in libraries | filter: {Platform: selectedPlatform.ID}">
+                    ng-repeat="item in libraries| filter: {Platform: selectedPlatform.ID}">
                     <input type="checkbox" class="form-control" ng-model="item.selected" name="libraryitem_{{$index}}"/>
                     <label for="libraryitem_{{$index}}">{{item.Name}}</label>
                 </li>
@@ -23,34 +27,54 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Zwracany typ</label>
-            <select 
-                class="form-control"
-                ng-disabled="!useCodeWrapper"
-                ng-options="item.Name for item in returntypes"
-                ng-model="selectedReturnType"></select>
+<div ng-show="inputMode == 'inline'">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Zwracany typ</label>
+                <select 
+                    class="form-control"
+                    ng-disabled="!useCodeWrapper"
+                    ng-options="item.Name for item in returntypes"
+                    ng-model="selectedReturnType"></select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="checkbox" class="form-control" ng-model="useCodeWrapper" name="use-wrapper"/>
+                <label for="use-wrapper">Użyj wrappera</label>
+            </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="row">
         <div class="col-lg-12">
-            <input type="checkbox" class="form-control" ng-model="useCodeWrapper" name="use-wrapper"/>
-            <label for="use-wrapper">Użyj wrappera</label>
+            <label>Kod</label>
+            <textarea 
+                ng-disabled="!selectedPlatform"
+                class="form-control code-area"
+                ng-model="code"></textarea>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12">
-        <label>Kod</label>
-        <textarea 
-            ng-disabled="!selectedPlatform"
-            class="form-control code-area"
-            ng-model="code"></textarea>
+<div ng-show="inputMode == 'files'">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="input-file-sources">Plik źródłowy</label>
+                <input type="file" class="form-control" 
+                       ng-model="sourceFiles" ngf-select="" />
+            </div>
+        </div>
+<!--        <div class="col-md-6">
+            <div class="form-group">
+                <label for="input-file-input">Pliki wejściowe</label>
+                <input type="file" class="form-control" multiple
+                       ng-model="inputFiles" ngf-select="" />
+            </div>
+        </div>-->
     </div>
 </div>
-<div class="row">
+<div class="row" style="margin-top: 10px;">
     <div class="col-lg-12">
         <button 
             ng-disabled="!selectedPlatform || waitingForResult"
@@ -59,6 +83,6 @@
         <span ng-show="waitingForResult">Czekaj...</span>
     </div>
 </div>
-<div>
+<div style="margin-top: 10px;">
     <pre ng-class="executionStatus">{{ executionResult}}</pre>
 </div>
