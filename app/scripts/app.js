@@ -16,9 +16,10 @@ angular.module('sandboxApp', [
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngFileUpload'
 ]).config(function ($routeProvider) {
-    $routeProvider.when('/', {
+    $routeProvider.when('/code', {
         templateUrl: 'views/code.html',
         controller: 'CodeCtrl',
         resolve: {
@@ -31,11 +32,32 @@ angular.module('sandboxApp', [
             returntypes: function (returntype) {
                 return returntype.query();
             }
-        }
+        },
+        tab: 'code'
     }).when('/libraries', {
         templateUrl: 'views/libraries.html',
-        controller: 'LibrariesCtrl'
+        controller: 'LibrariesCtrl',
+        resolve: {
+            libraries: function (library) {
+                return library.query();
+            },
+            platforms: function (platform) {
+                return platform.query();
+            }
+        },
+        tab: 'libraries'
+    }).when('/libraries/new', {
+        templateUrl: 'views/libraries-form.html',
+        controller: 'LibrariesFormCtrl',
+        resolve: {
+            libraryItem: function () {
+                return null;
+            },
+            platforms: function(platform) {
+                return platform.query();
+            }
+        }
     }).otherwise({
-        redirectTo: '/'
+        redirectTo: '/code'
     });
 });

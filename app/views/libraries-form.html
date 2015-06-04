@@ -1,0 +1,35 @@
+<h2>Nowa biblioteka</h2>
+<div class="row row-centered">
+    <div class="col-md-8 col-centered">
+        <form class="form-horizontal" ng-submit="save()">
+            <div class="form-group">
+                <label for="library-name" class="col-md-6 control-label">Nazwa</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" 
+                           ng-model="name" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-6 control-label">Platforma</label>
+                <div class="col-md-6">
+                    <select 
+                        class="form-control"
+                        ng-options="item.Name for item in platforms"
+                        ng-model="platform"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-6 control-label">Plik</label>
+                <div class="col-md-6">
+                    <input type="file" class="form-control"
+                           ng-model="files" ngf-select="" />
+                </div>
+            </div>
+            <div class="alert alert-danger" ng-show="error">Błąd podczas dodawania biblioteki</div>
+            <div>
+                <a class="btn btn-default pull-right" href="#/libraries" style="margin-left:10px;">Wróć</a>
+                <button type="submit" class="btn btn-default pull-right">Zapisz</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,3 +1,4 @@
+<h2>Kompilacja</h2>
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -13,7 +14,7 @@
             <label>Biblioteki</label>
             <ul class="multiple-checkboxes" ng-show="selectedPlatform">
                 <li
-                    ng-repeat="item in libraries| filter: {Platform: selectedPlatform.ID}">
+                    ng-repeat="item in libraries | filter: {Platform: selectedPlatform.ID}">
                     <input type="checkbox" class="form-control" ng-model="item.selected" name="libraryitem_{{$index}}"/>
                     <label for="libraryitem_{{$index}}">{{item.Name}}</label>
                 </li>

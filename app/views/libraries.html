@@ -1,1 +1,46 @@
-<p>This is the about view.</p>
+<h2>Biblioteki</h2>
+<div>
+    <a href="#/libraries/new" class="btn btn-default">Dodaj nową</a>
+</div>
+<div>
+    <table class="table table-condensed table-striped">
+        <thead>
+            <tr>
+                <th style="width: 70px;"></th>
+                <th style="width: 50%;">Nazwa</th>
+                <th>Platforma</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in librariesList">
+                <td>
+                    <button type="button" class="btn btn-default btn-xs" 
+                            ng-click="editItem(item)" ng-disabled="isEditMode">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs" 
+                            ng-click="deleteItem(item)" ng-disabled="isEditMode">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </td>
+                <td>
+                    <span ng-hide="item.$edit">{{ item.Name}}</span>
+                    <div class="input-group" ng-show="item.$edit">
+                        <input type="text" class="form-control input-xs" ng-model="item.Name"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-xs"
+                                    ng-click="rollbackEdit(item)">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                            <button type="button" class="btn btn-default btn-xs"
+                                    ng-click="acceptEdit(item)">
+                                <i class="glyphicon glyphicon-check"></i>
+                            </button>
+                        </span>
+                    </div>
+                </td>
+                <td>{{ getPlatform(item.Platform).Name}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

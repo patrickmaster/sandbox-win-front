@@ -38,8 +38,8 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Kod</a></li>
-              <li><a ng-href="#/libraries">Biblioteki</a></li>
+              <li data-active-tab="code"><a href="#/code">Kod</a></li>
+              <li data-active-tab="libraries"><a ng-href="#/libraries">Biblioteki</a></li>
             </ul>
           </div>
         </div>
@@ -81,6 +81,7 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -88,11 +89,14 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/code.js"></script>
     <script src="scripts/controllers/libraries.js"></script>
+    <script src="scripts/controllers/librariesform.js"></script>
+    <script src="scripts/controllers/global.js"></script>
     <script src="scripts/services/apiurl.js"></script>
     <script src="scripts/services/platform.js"></script>
     <script src="scripts/services/library.js"></script>
     <script src="scripts/services/operation.js"></script>
     <script src="scripts/services/returntype.js"></script>
+    <script src="scripts/directives/navtab.js"></script>
     <!-- endbuild -->
 </body>
 </html>
