@@ -9,6 +9,12 @@
  */
 angular.module('sandboxApp').controller('LibrariesCtrl', function ($scope, libraries, platforms) {
 
+    $scope.alerts = [];
+
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
+
     $scope.librariesList = libraries;
 
     $scope.getPlatform = function (id) {
@@ -27,6 +33,11 @@ angular.module('sandboxApp').controller('LibrariesCtrl', function ($scope, libra
 
     $scope.acceptEdit = function (item) {
         item.$update().then(function () {
+            item.$edit = false;
+            $scope.isEditMode = false;
+        }, function () {
+            $scope.alerts.push({type:'danger', msg: 'Nazwa biblioteki musi być unikatowa'});
+            item.Name = item.$previous;
             item.$edit = false;
             $scope.isEditMode = false;
         });

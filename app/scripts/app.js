@@ -17,7 +17,8 @@ angular.module('sandboxApp', [
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngFileUpload'
+    'ngFileUpload',
+    'ui.bootstrap'
 ]).config(function ($routeProvider) {
     $routeProvider.when('/code', {
         templateUrl: 'views/code.html',
