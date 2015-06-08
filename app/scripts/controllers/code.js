@@ -37,10 +37,14 @@ angular.module('sandboxApp').controller('CodeCtrl', function ($scope, platforms,
             Platform: $scope.selectedPlatform.ID,
             Libraries: getLibraries(),
             Code: $scope.code,
-            ReturnType: $scope.selectedReturnType.ID,
+            ReturnType: $scope.selectedReturnType && $scope.selectedReturnType.ID || 0,
             UseWrapper: $scope.useCodeWrapper
         }, function (data) {
             pullResult(data.ID);
+        }, function () {
+            $scope.executionStatus = 'execution-failure';
+            $scope.executionResult = 'Nieoczekiwany błąd';
+            $scope.waitingForResult = false;
         });
     }
 

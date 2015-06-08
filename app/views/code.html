@@ -19,7 +19,8 @@
             <ul class="multiple-checkboxes" ng-show="selectedPlatform">
                 <li
                     ng-repeat="item in libraries| filter: {Platform: selectedPlatform.ID}">
-                    <input type="checkbox" class="form-control" ng-model="item.selected" name="libraryitem_{{$index}}"/>
+                    <input type="checkbox" class="form-control" ng-model="item.selected" 
+                           name="libraryitem_{{$index}}" id="libraryitem_{{$index}}"/>
                     <label for="libraryitem_{{$index}}">{{item.Name}}</label>
                 </li>
             </ul>
@@ -34,7 +35,7 @@
                 <label>Zwracany typ</label>
                 <select 
                     class="form-control"
-                    ng-disabled="!useCodeWrapper"
+                    ng-disabled="!useCodeWrapper || selectedPlatform.ID == 4"
                     ng-options="item.Name for item in returntypes"
                     ng-model="selectedReturnType"></select>
             </div>
